@@ -17,8 +17,8 @@ provider "aws" {
 
 /*
 import {
-  to = aws_route53_record.CNAME
-  id = "Z05720531MSHK0AAJ0Q96__99cdba28aefb0537fb0b076af0f47efe.x24sousa.com_CNAME"
+  to = aws_dynamodb_table.x24_dynamo
+  id = "VisitorCountTable"
 }
 
 */
