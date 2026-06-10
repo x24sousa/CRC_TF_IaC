@@ -1,3 +1,14 @@
+### Route 53 Zone ###
+resource "aws_route53_zone" "route53_x24sousa" {
+  comment                     = "HostedZone created by Route53 Registrar"
+  enable_accelerated_recovery = false
+  name                        = "x24sousa.com"
+}
+
+
+
+### DNS RECORDS ###
+
 resource "aws_route53_record" "AAAA" {
   health_check_id = null
   name            = "x24sousa.com"
@@ -49,6 +60,12 @@ resource "aws_route53_record" "AAAA_www" {
     zone_id                = "Z2FDTNDATAQYW2"
   }
 }
+
+
+
+
+
+
 
 ###### NO NEED TO TOUCH THESE RECORDS ######
 resource "aws_route53_record" "SOA" {
