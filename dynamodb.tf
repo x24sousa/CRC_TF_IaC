@@ -9,11 +9,13 @@ resource "aws_dynamodb_table" "x24_dynamo" {
   region                      = "us-west-2"
   stream_enabled              = false
   table_class                 = "STANDARD"
-  #tags                        = {}
-  #tags_all                    = {}
-  write_capacity = 0
+  write_capacity              = 0
   attribute {
     name = "visitor_count_id"
     type = "N"
+  }
+  # Prevent accidental deletion of this S3 bucket
+  lifecycle {
+    prevent_destroy = true
   }
 }
