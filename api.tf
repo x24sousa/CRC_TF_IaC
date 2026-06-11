@@ -57,6 +57,5 @@ resource "aws_apigatewayv2_integration" "api_integration" {
   integration_uri               = "arn:aws:lambda:us-west-2:538661800229:function:VisitorCountFuntion"
   payload_format_version        = "2.0"
   region                        = "us-west-2"
-  template_selection_expression = null
   timeout_milliseconds          = 30000
 }
