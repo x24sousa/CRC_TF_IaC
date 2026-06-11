@@ -14,7 +14,7 @@ resource "aws_lambda_function" "visitor_function" {
   role                           = "arn:aws:iam::538661800229:role/VisitorCountFuntion-role-zch8ls5j"
   runtime                        = "python3.12"
   skip_destroy                   = false
-  timeout = 3
+  timeout                        = 3
   ephemeral_storage {
     size = 512
   }
