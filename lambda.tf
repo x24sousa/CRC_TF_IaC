@@ -11,7 +11,7 @@ resource "aws_lambda_function" "visitor_function" {
   package_type                   = "Zip"
   region                         = "us-west-2"
   reserved_concurrent_executions = -1
-  role                           = "arn:aws:iam::538661800229:role/VisitorCountFuntion-role-zch8ls5j"
+  role                           = aws_iam_role.visitorcount_role.arn
   runtime                        = "python3.12"
   skip_destroy                   = false
   timeout                        = 3
@@ -19,10 +19,8 @@ resource "aws_lambda_function" "visitor_function" {
     size = 512
   }
   logging_config {
-    #application_log_level = null
     log_format = "Text"
     log_group  = "/aws/lambda/VisitorCountFuntion"
-    #system_log_level      = null
   }
   tracing_config {
     mode = "PassThrough"

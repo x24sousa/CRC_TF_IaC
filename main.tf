@@ -5,10 +5,7 @@ provider "aws" {
 
 
 
-import {
-  to = aws_apigatewayv2_integration.api_integration
-  id = "jmic5vdez6/h024gfb"
-}
+
 
 
 
