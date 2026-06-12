@@ -54,7 +54,7 @@ resource "aws_apigatewayv2_integration" "api_integration" {
   connection_type        = "INTERNET"
   integration_method     = "POST"
   integration_type       = "AWS_PROXY"
-  integration_uri        = "arn:aws:lambda:us-west-2:538661800229:function:VisitorCountFuntion"
+  integration_uri        = aws_lambda_function.visitor_function.arn
   payload_format_version = "2.0"
   region                 = "us-west-2"
   timeout_milliseconds   = 30000
