@@ -3,6 +3,11 @@ resource "aws_route53_zone" "route53_x24sousa" {
   comment                     = "HostedZone created by Route53 Registrar"
   enable_accelerated_recovery = false
   name                        = "x24sousa.com"
+
+  # Prevent accidental deletion of this Route53 Zone
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 

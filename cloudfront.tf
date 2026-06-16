@@ -72,6 +72,11 @@ resource "aws_acm_certificate" "x24sousa_cert" {
     certificate_transparency_logging_preference = "ENABLED"
     export                                      = "DISABLED"
   }
+
+  # Prevent accidental deletion of this ACM Cert
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 

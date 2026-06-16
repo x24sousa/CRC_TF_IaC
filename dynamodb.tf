@@ -14,7 +14,7 @@ resource "aws_dynamodb_table" "x24_dynamo" {
     name = "visitor_count_id"
     type = "N"
   }
-  # Prevent accidental deletion of this S3 bucket
+  # Prevent accidental deletion of this DynamoDB table
   lifecycle {
     prevent_destroy = true
   }
