@@ -33,3 +33,13 @@ resource "aws_iam_policy" "visitorcount_policy" {
     Version = "2012-10-17"
   })
 }
+
+
+resource "aws_lambda_permission" "visitorcount_permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = "VisitorCountFuntion"
+  principal     = "apigateway.amazonaws.com"
+  region        = "us-west-2"
+  source_arn    = "${aws_apigatewayv2_api.visitor_api.execution_arn}/*/*/VisitorCountFuntion"
+  statement_id  = "lambda-5d1c5bd4-9255-4540-b0aa-c6eea8a3eb31"
+}

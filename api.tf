@@ -20,7 +20,7 @@ resource "aws_apigatewayv2_api" "visitor_api" {
 ### API Stage ###
 
 resource "aws_apigatewayv2_stage" "api_stage" {
-  api_id        = "jmic5vdez6"
+  api_id        = aws_apigatewayv2_api.visitor_api.id
   auto_deploy   = true
   deployment_id = "r4fe16"
   description   = "Created by AWS Lambda"
@@ -38,7 +38,7 @@ resource "aws_apigatewayv2_stage" "api_stage" {
 ### API Route ###
 
 resource "aws_apigatewayv2_route" "api_route" {
-  api_id             = "jmic5vdez6"
+  api_id             = aws_apigatewayv2_api.visitor_api.id
   api_key_required   = false
   authorization_type = "NONE"
   region             = "us-west-2"
@@ -50,7 +50,7 @@ resource "aws_apigatewayv2_route" "api_route" {
 ### API Integration ###
 
 resource "aws_apigatewayv2_integration" "api_integration" {
-  api_id                 = "jmic5vdez6"
+  api_id                 = aws_apigatewayv2_api.visitor_api.id
   connection_type        = "INTERNET"
   integration_method     = "POST"
   integration_type       = "AWS_PROXY"
