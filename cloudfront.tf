@@ -13,7 +13,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distro" {
     Name = "My Resume"
   }
   wait_for_deployment = true
-  web_acl_id          = "arn:aws:wafv2:us-east-1:538661800229:global/webacl/CreatedByCloudFront-04fdc8cf/8d70a546-9949-4306-b0a9-185421832f1d"
+  web_acl_id          = aws_wafv2_web_acl.x24sousa_acl.arn # referenced below
   default_cache_behavior {
     allowed_methods        = ["GET", "HEAD"]
     cache_policy_id        = "658327ea-f89d-4fab-a63d-7e88639e58f6"
@@ -50,8 +50,115 @@ resource "aws_cloudfront_distribution" "cloudfront_distro" {
     }
   }
   viewer_certificate {
-    acm_certificate_arn      = "arn:aws:acm:us-east-1:538661800229:certificate/e1a6996f-85a2-4711-87f9-8d9de1a98d44"
+    acm_certificate_arn      = aws_acm_certificate.x24sousa_cert.arn # referenced below
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method       = "sni-only"
+  }
+}
+
+
+
+
+
+### ACM Cert for x24sousa.com ###
+
+resource "aws_acm_certificate" "x24sousa_cert" {
+  domain_name               = "x24sousa.com"
+  key_algorithm             = "RSA_2048"
+  region                    = "us-east-1"
+  subject_alternative_names = ["www.x24sousa.com", "x24sousa.com"]
+  validation_method         = "DNS"
+  options {
+    certificate_transparency_logging_preference = "ENABLED"
+    export                                      = "DISABLED"
+  }
+}
+
+
+
+
+
+### Web ACL ###
+
+resource "aws_wafv2_web_acl" "x24sousa_acl" {
+  provider = aws.aws_east
+
+  name  = "CreatedByCloudFront-04fdc8cf"
+  scope = "CLOUDFRONT"
+
+  default_action {
+    allow {}
+  }
+
+  rule {
+    name     = "AWS-AWSManagedRulesAmazonIpReputationList"
+    priority = 0
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesAmazonIpReputationList"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "AWS-AWSManagedRulesAmazonIpReputationList"
+      sampled_requests_enabled   = true
+    }
+  }
+
+  rule {
+    name     = "AWS-AWSManagedRulesCommonRuleSet"
+    priority = 1
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesCommonRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "AWS-AWSManagedRulesCommonRuleSet"
+      sampled_requests_enabled   = true
+    }
+  }
+
+  rule {
+    name     = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
+    priority = 2
+
+    override_action {
+      count {}
+    }
+
+    statement {
+      managed_rule_group_statement {
+        name        = "AWSManagedRulesKnownBadInputsRuleSet"
+        vendor_name = "AWS"
+      }
+    }
+
+    visibility_config {
+      cloudwatch_metrics_enabled = true
+      metric_name                = "AWS-AWSManagedRulesKnownBadInputsRuleSet"
+      sampled_requests_enabled   = true
+    }
+  }
+
+  visibility_config {
+    cloudwatch_metrics_enabled = true
+    metric_name                = "CreatedByCloudFront-04fdc8cf"
+    sampled_requests_enabled   = true
   }
 }
