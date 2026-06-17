@@ -12,16 +12,14 @@ provider "aws" {
 
 
 import {
-  to = aws_iam_role_policy_attachment.lambda_attachment
-  id = "VisitorCountFuntion-role-zch8ls5j/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+  to = aws_s3_bucket_policy.resume_bucket_policy
+  id = "x24sousa.com"
 }
-
 
 import {
-  to = aws_iam_role_policy_attachment.dynamo_attachment
-  id = "VisitorCountFuntion-role-zch8ls5j/arn:aws:iam::538661800229:policy/VisitorCountFuntion-role-zch8ls5jPolicy"
+  to = aws_s3_bucket_public_access_block.resume_bucket_public_access
+  id = "x24sousa.com"
 }
-
 
 
 /*
