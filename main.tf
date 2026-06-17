@@ -11,16 +11,6 @@ provider "aws" {
 }
 
 
-import {
-  to = aws_s3_bucket_policy.resume_bucket_policy
-  id = "x24sousa.com"
-}
-
-import {
-  to = aws_s3_bucket_public_access_block.resume_bucket_public_access
-  id = "x24sousa.com"
-}
-
 
 /*
 import {
