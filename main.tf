@@ -11,10 +11,16 @@ provider "aws" {
 }
 
 
+import {
+  to = aws_iam_role_policy_attachment.lambda_attachment
+  id = "VisitorCountFuntion-role-zch8ls5j/arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+}
 
 
-
-
+import {
+  to = aws_iam_role_policy_attachment.dynamo_attachment
+  id = "VisitorCountFuntion-role-zch8ls5j/arn:aws:iam::538661800229:policy/VisitorCountFuntion-role-zch8ls5jPolicy"
+}
 
 
 
