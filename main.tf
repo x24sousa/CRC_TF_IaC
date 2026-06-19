@@ -12,6 +12,9 @@ provider "aws" {
 
 
 
+
+
+
 /*
 import {
   to = aws_dynamodb_table.x24_dynamo
