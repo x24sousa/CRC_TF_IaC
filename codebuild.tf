@@ -89,7 +89,9 @@ resource "aws_iam_role_policy" "codebuild_modify_s3" {
   role = aws_iam_role.cicd_service_role.name
 }
 
-###   ###
+
+#------------------------------------------------------------------------------------------------
+### Base Codebuild permission policy  ###
 
 resource "aws_iam_policy" "codebuild_base_policy" {
   description = "Policy used in trust relationship with CodeBuild"
@@ -113,7 +115,19 @@ resource "aws_iam_policy" "codebuild_base_policy" {
   })
 }
 
-###   ###
+
+### Policy attachment, connects the above policy to the CICD service role ###
+
+resource "aws_iam_role_policy_attachment" "codebuild_base_attachment" {
+  policy_arn = aws_iam_policy.codebuild_base_policy.arn
+  role       = "codebuild-X24sousa_CICD-service-role"
+}
+
+
+#------------------------------------------------------------------------------------------------
+
+
+### Codebuild credentials policy  ###
 
 resource "aws_iam_policy" "codebuild_connections_credentials" {
   description = "Policy used in trust relationship with CodeBuild"
@@ -127,4 +141,13 @@ resource "aws_iam_policy" "codebuild_connections_credentials" {
     }]
     Version = "2012-10-17"
   })
+}
+
+
+
+### Policy attachment, connects the above policy to the CICD service role ###
+
+resource "aws_iam_role_policy_attachment" "codebuild_credentials_attachment" {
+  policy_arn = aws_iam_policy.codebuild_connections_credentials.arn
+  role       = "codebuild-X24sousa_CICD-service-role"
 }
