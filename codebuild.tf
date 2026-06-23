@@ -23,7 +23,8 @@ resource "aws_codebuild_project" "x24sousa_cicd" {
   }
   logs_config {
     cloudwatch_logs {
-      status = "ENABLED"
+      status     = "ENABLED"
+      group_name = aws_cloudwatch_log_group.x24sousa_cicd.name
     }
     s3_logs {
       status = "DISABLED"
@@ -160,4 +161,17 @@ resource "aws_codestarconnections_connection" "codebuild_codeconnection" {
   name          = "X24SousaGitHub"
   provider_type = "GitHub"
   region        = "us-west-2"
+}
+
+
+#------------------------------------------------------------------------------------------------
+
+
+### Log Group for CodeBuild project ###
+
+resource "aws_cloudwatch_log_group" "x24sousa_cicd" {
+  log_group_class   = "STANDARD"
+  name              = "/aws/codebuild/X24sousa_CICD"
+  region            = "us-west-2"
+  retention_in_days = 0
 }
