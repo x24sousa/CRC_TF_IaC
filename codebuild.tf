@@ -102,7 +102,7 @@ resource "aws_iam_policy" "codebuild_base_policy" {
     Statement = [{
       Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]
       Effect   = "Allow"
-      Resource = ["arn:aws:logs:us-west-2:538661800229:log-group:/aws/codebuild/X24sousa_CICD", "arn:aws:logs:us-west-2:538661800229:log-group:/aws/codebuild/X24sousa_CICD:*"]
+      Resource = [aws_cloudwatch_log_group.x24sousa_cicd.arn, "${aws_cloudwatch_log_group.x24sousa_cicd.arn}:*"]
       }, {
       Action   = ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion", "s3:GetBucketAcl", "s3:GetBucketLocation"]
       Effect   = "Allow"
