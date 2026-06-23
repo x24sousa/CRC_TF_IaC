@@ -12,8 +12,6 @@ provider "aws" {
 
 
 
-
-
 /*
 import {
   to = aws_codestarconnections_connection.codebuild_x24sousa_codeconnection

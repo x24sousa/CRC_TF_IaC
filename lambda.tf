@@ -20,9 +20,20 @@ resource "aws_lambda_function" "visitor_function" {
   }
   logging_config {
     log_format = "Text"
-    log_group  = "/aws/lambda/VisitorCountFuntion"
+    log_group  = aws_cloudwatch_log_group.visitorcountfuntion_log.name
   }
   tracing_config {
     mode = "PassThrough"
   }
+}
+
+#------------------------------------------------------------------------------------------------
+
+### AWS Log Group resource ###
+
+resource "aws_cloudwatch_log_group" "visitorcountfuntion_log" {
+  log_group_class   = "STANDARD"
+  name              = "/aws/lambda/VisitorCountFuntion"
+  region            = "us-west-2"
+  retention_in_days = 0
 }
