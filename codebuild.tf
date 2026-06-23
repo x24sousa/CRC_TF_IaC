@@ -103,14 +103,16 @@ resource "aws_iam_policy" "codebuild_base_policy" {
       Action   = ["logs:CreateLogGroup", "logs:CreateLogStream", "logs:PutLogEvents"]
       Effect   = "Allow"
       Resource = [aws_cloudwatch_log_group.x24sousa_cicd.arn, "${aws_cloudwatch_log_group.x24sousa_cicd.arn}:*"]
-      }, {
-      Action   = ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion", "s3:GetBucketAcl", "s3:GetBucketLocation"]
-      Effect   = "Allow"
-      Resource = ["arn:aws:s3:::codepipeline-us-west-2-*"]
-      }, {
-      Action   = ["codebuild:CreateReportGroup", "codebuild:CreateReport", "codebuild:UpdateReport", "codebuild:BatchPutTestCases", "codebuild:BatchPutCodeCoverages"]
-      Effect   = "Allow"
-      Resource = ["arn:aws:codebuild:us-west-2:538661800229:report-group/X24sousa_CICD-*"]
+      },
+      {
+        Action   = ["s3:PutObject", "s3:GetObject", "s3:GetObjectVersion", "s3:GetBucketAcl", "s3:GetBucketLocation"]
+        Effect   = "Allow"
+        Resource = ["arn:aws:s3:::codepipeline-us-west-2-*"]
+      },
+      {
+        Action   = ["codebuild:CreateReportGroup", "codebuild:CreateReport", "codebuild:UpdateReport", "codebuild:BatchPutTestCases", "codebuild:BatchPutCodeCoverages"]
+        Effect   = "Allow"
+        Resource = ["arn:aws:codebuild:us-west-2:538661800229:report-group/X24sousa_CICD-*"]
     }]
     Version = "2012-10-17"
   })
@@ -138,7 +140,7 @@ resource "aws_iam_policy" "codebuild_connections_credentials" {
     Statement = [{
       Action   = ["codestar-connections:GetConnectionToken", "codestar-connections:GetConnection", "codeconnections:GetConnectionToken", "codeconnections:GetConnection", "codeconnections:UseConnection"]
       Effect   = "Allow"
-      Resource = ["arn:aws:codestar-connections:us-west-2:538661800229:connection/d63be2a7-6a4e-4bdc-b93a-d82a270408b4", aws_codestarconnections_connection.codebuild_codeconnection.arn]
+      Resource = ["arn:aws:codestar-connections:us-west-2:538661800229:connection/d63be2a7-6a4e-4bdc-b93a-d82a270408b4", aws_codeconnections_connection.codebuild_codeconnection.arn]
       #Resource = ["arn:aws:codestar-connections:us-west-2:538661800229:connection/8a8f93be-4e0f-49d2-9e3f-2bfe634357e5", "arn:aws:codeconnections:us-west-2:538661800229:connection/8a8f93be-4e0f-49d2-9e3f-2bfe634357e5"]
     }]
     Version = "2012-10-17"
@@ -157,7 +159,7 @@ resource "aws_iam_role_policy_attachment" "codebuild_credentials_attachment" {
 #------------------------------------------------------------------------------------------------
 
 
-resource "aws_codestarconnections_connection" "codebuild_codeconnection" {
+resource "aws_codeconnections_connection" "codebuild_codeconnection" {
   name          = "X24SousaGitHub"
   provider_type = "GitHub"
   region        = "us-west-2"
@@ -175,3 +177,5 @@ resource "aws_cloudwatch_log_group" "x24sousa_cicd" {
   region            = "us-west-2"
   retention_in_days = 0
 }
+
+
