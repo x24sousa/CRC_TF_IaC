@@ -4,7 +4,6 @@ variable "region_west" {
   default     = "us-west-2"
 }
 
-
 variable "region_east" {
   description = "Region"
   type        = string

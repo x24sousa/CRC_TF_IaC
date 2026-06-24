@@ -65,7 +65,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distro" {
 resource "aws_acm_certificate" "x24sousa_cert" {
   domain_name               = var.domain_x24
   key_algorithm             = "RSA_2048"
-  region                    = "us-east-1"
+  region                    = var.region_east
   subject_alternative_names = ["www.${var.domain_x24}", var.domain_x24]
   validation_method         = "DNS"
   options {

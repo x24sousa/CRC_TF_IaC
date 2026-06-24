@@ -1,11 +1,11 @@
 ### Default AWS provider ###
 provider "aws" {
-  region = "us-west-2"
+  region = var.region_west
 }
 
 ### Aliased AWS provider ###
 provider "aws" {
-  region = "us-east-1"
+  region = var.region_east
   alias  = "aws_east"
 
 }

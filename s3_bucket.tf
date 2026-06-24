@@ -1,6 +1,6 @@
 ### S3 bucket ##
 resource "aws_s3_bucket" "resume_bucket" {
-  bucket = "x24sousa.com"
+  bucket = var.domain_x24
 
   # Prevent accidental deletion of this S3 bucket
   lifecycle {
