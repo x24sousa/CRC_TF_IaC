@@ -9,7 +9,7 @@ resource "aws_lambda_function" "visitor_function" {
   layers                         = []
   memory_size                    = 128
   package_type                   = "Zip"
-  region                         = "us-west-2"
+  region                         = var.region_west
   reserved_concurrent_executions = -1
   role                           = aws_iam_role.visitorcount_role.arn
   runtime                        = "python3.12"
@@ -34,6 +34,6 @@ resource "aws_lambda_function" "visitor_function" {
 resource "aws_cloudwatch_log_group" "visitorcountfuntion_log" {
   log_group_class   = "STANDARD"
   name              = "/aws/lambda/VisitorCountFuntion"
-  region            = "us-west-2"
+  region            = var.region_west
   retention_in_days = 0
 }

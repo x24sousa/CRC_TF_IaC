@@ -7,7 +7,7 @@ resource "aws_apigatewayv2_api" "visitor_api" {
   ip_address_type              = "ipv4"
   name                         = "VisitorCountFuntion-API"
   protocol_type                = "HTTP"
-  region                       = "us-west-2"
+  region                       = var.region_west
   route_selection_expression   = "$request.method $request.path"
   cors_configuration {
     allow_credentials = false
@@ -25,7 +25,7 @@ resource "aws_apigatewayv2_stage" "api_stage" {
   deployment_id = "r4fe16"
   description   = "Created by AWS Lambda"
   name          = "default"
-  region        = "us-west-2"
+  region        = var.region_west
   default_route_settings {
     data_trace_enabled       = false
     detailed_metrics_enabled = false
@@ -41,7 +41,7 @@ resource "aws_apigatewayv2_route" "api_route" {
   api_id             = aws_apigatewayv2_api.visitor_api.id
   api_key_required   = false
   authorization_type = "NONE"
-  region             = "us-west-2"
+  region             = var.region_west
   route_key          = "GET /VisitorCountFuntion"
   target             = "integrations/h024gfb"
 }
@@ -56,6 +56,6 @@ resource "aws_apigatewayv2_integration" "api_integration" {
   integration_type       = "AWS_PROXY"
   integration_uri        = aws_lambda_function.visitor_function.arn
   payload_format_version = "2.0"
-  region                 = "us-west-2"
+  region                 = var.region_west
   timeout_milliseconds   = 30000
 }

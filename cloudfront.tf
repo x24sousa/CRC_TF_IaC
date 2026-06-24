@@ -1,7 +1,7 @@
 ### Cloudfront Distro ##
 
 resource "aws_cloudfront_distribution" "cloudfront_distro" {
-  aliases         = ["www.x24sousa.com", "x24sousa.com"]
+  aliases         = ["www.${var.domain_x24}", var.domain_x24]
   enabled         = true
   http_version    = "http2"
   is_ipv6_enabled = true
@@ -63,10 +63,10 @@ resource "aws_cloudfront_distribution" "cloudfront_distro" {
 ### ACM Cert for x24sousa.com ###
 
 resource "aws_acm_certificate" "x24sousa_cert" {
-  domain_name               = "x24sousa.com"
+  domain_name               = var.domain_x24
   key_algorithm             = "RSA_2048"
   region                    = "us-east-1"
-  subject_alternative_names = ["www.x24sousa.com", "x24sousa.com"]
+  subject_alternative_names = ["www.${var.domain_x24}", var.domain_x24]
   validation_method         = "DNS"
   options {
     certificate_transparency_logging_preference = "ENABLED"

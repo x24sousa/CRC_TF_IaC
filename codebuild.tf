@@ -7,7 +7,7 @@ resource "aws_codebuild_project" "x24sousa_cicd" {
   name               = "X24sousa_CICD"
   project_visibility = "PRIVATE"
   queued_timeout     = 480
-  region             = "us-west-2"
+  region             = var.region_west
   service_role       = aws_iam_role.cicd_service_role.arn
   artifacts {
     type = "NO_ARTIFACTS"
@@ -141,7 +141,6 @@ resource "aws_iam_policy" "codebuild_connections_credentials" {
       Action   = ["codestar-connections:GetConnectionToken", "codestar-connections:GetConnection", "codeconnections:GetConnectionToken", "codeconnections:GetConnection", "codeconnections:UseConnection"]
       Effect   = "Allow"
       Resource = ["arn:aws:codestar-connections:us-west-2:538661800229:connection/d63be2a7-6a4e-4bdc-b93a-d82a270408b4", aws_codeconnections_connection.codebuild_codeconnection.arn]
-      #Resource = ["arn:aws:codestar-connections:us-west-2:538661800229:connection/8a8f93be-4e0f-49d2-9e3f-2bfe634357e5", "arn:aws:codeconnections:us-west-2:538661800229:connection/8a8f93be-4e0f-49d2-9e3f-2bfe634357e5"]
     }]
     Version = "2012-10-17"
   })
@@ -162,7 +161,7 @@ resource "aws_iam_role_policy_attachment" "codebuild_credentials_attachment" {
 resource "aws_codeconnections_connection" "codebuild_codeconnection" {
   name          = "X24SousaGitHub"
   provider_type = "GitHub"
-  region        = "us-west-2"
+  region        = var.region_west
 }
 
 
@@ -174,7 +173,7 @@ resource "aws_codeconnections_connection" "codebuild_codeconnection" {
 resource "aws_cloudwatch_log_group" "x24sousa_cicd" {
   log_group_class   = "STANDARD"
   name              = "/aws/codebuild/X24sousa_CICD"
-  region            = "us-west-2"
+  region            = var.region_west
   retention_in_days = 0
 }
 

@@ -2,7 +2,7 @@
 resource "aws_route53_zone" "route53_x24sousa" {
   comment                     = "HostedZone created by Route53 Registrar"
   enable_accelerated_recovery = false
-  name                        = "x24sousa.com"
+  name                        = var.domain_x24
 
   # Prevent accidental deletion of this Route53 Zone
   lifecycle {
@@ -15,7 +15,7 @@ resource "aws_route53_zone" "route53_x24sousa" {
 ### DNS RECORDS ###
 
 resource "aws_route53_record" "AAAA" {
-  name    = "x24sousa.com"
+  name    = var.domain_x24
   type    = "AAAA"
   zone_id = "Z05720531MSHK0AAJ0Q96"
   alias {
@@ -26,7 +26,7 @@ resource "aws_route53_record" "AAAA" {
 }
 
 resource "aws_route53_record" "A" {
-  name    = "x24sousa.com"
+  name    = var.domain_x24
   type    = "A"
   zone_id = "Z05720531MSHK0AAJ0Q96"
   alias {
@@ -38,7 +38,7 @@ resource "aws_route53_record" "A" {
 
 resource "aws_route53_record" "A_www" {
   #multivalue_answer_routing_policy = false
-  name    = "www.x24sousa.com"
+  name    = "www.${var.domain_x24}"
   type    = "A"
   zone_id = "Z05720531MSHK0AAJ0Q96"
   alias {
@@ -49,7 +49,7 @@ resource "aws_route53_record" "A_www" {
 }
 
 resource "aws_route53_record" "AAAA_www" {
-  name    = "www.x24sousa.com"
+  name    = "www.${var.domain_x24}"
   type    = "AAAA"
   zone_id = "Z05720531MSHK0AAJ0Q96"
   alias {
@@ -67,7 +67,7 @@ resource "aws_route53_record" "AAAA_www" {
 
 ###### NO NEED TO TOUCH THESE RECORDS ######
 resource "aws_route53_record" "SOA" {
-  name    = "x24sousa.com"
+  name    = var.domain_x24
   records = ["ns-411.awsdns-51.com. awsdns-hostmaster.amazon.com. 1 7200 900 1209600 86400"]
   ttl     = 900
   type    = "SOA"
@@ -76,7 +76,7 @@ resource "aws_route53_record" "SOA" {
 
 ###### NO NEED TO TOUCH THESE RECORDS ######
 resource "aws_route53_record" "NS" {
-  name    = "x24sousa.com"
+  name    = var.domain_x24
   records = ["ns-1286.awsdns-32.org.", "ns-1947.awsdns-51.co.uk.", "ns-411.awsdns-51.com.", "ns-803.awsdns-36.net."]
   ttl     = 172800
   type    = "NS"

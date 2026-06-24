@@ -39,7 +39,7 @@ resource "aws_lambda_permission" "visitorcount_permission" {
   action        = "lambda:InvokeFunction"
   function_name = "VisitorCountFuntion"
   principal     = "apigateway.amazonaws.com"
-  region        = "us-west-2"
+  region        = var.region_west
   source_arn    = "${aws_apigatewayv2_api.visitor_api.execution_arn}/*/*/VisitorCountFuntion"
   statement_id  = "lambda-5d1c5bd4-9255-4540-b0aa-c6eea8a3eb31"
 }
@@ -48,11 +48,11 @@ resource "aws_lambda_permission" "visitorcount_permission" {
 # Policy attachments. These link the roles to the policies themselves
 resource "aws_iam_role_policy_attachment" "dynamo_attachment" {
   policy_arn = aws_iam_policy.visitorcount_policy.arn
-  role       = "VisitorCountFuntion-role-zch8ls5j"
+  role       = aws_iam_role.visitorcount_role.name
 }
 
 # Policy attachments. These link the roles to the policies themselves
 resource "aws_iam_role_policy_attachment" "lambda_attachment" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = "VisitorCountFuntion-role-zch8ls5j"
+  role       = aws_iam_role.visitorcount_role.name
 }

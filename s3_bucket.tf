@@ -18,7 +18,7 @@ resource "aws_s3_bucket_versioning" "enabled" {
 
 # Bucket access policy
 resource "aws_s3_bucket_policy" "resume_bucket_policy" {
-  bucket = "x24sousa.com"
+  bucket = aws_s3_bucket.resume_bucket.id
   policy = jsonencode({
     Statement = [{
       Action    = "s3:GetObject"
@@ -29,16 +29,16 @@ resource "aws_s3_bucket_policy" "resume_bucket_policy" {
     }]
     Version = "2012-10-17"
   })
-  region = "us-west-2"
+  region = var.region_west
 }
 
 # Public access policy for bucket, basically not useful right now
 resource "aws_s3_bucket_public_access_block" "resume_bucket_public_access" {
   block_public_acls       = false
   block_public_policy     = false
-  bucket                  = "x24sousa.com"
+  bucket                  = aws_s3_bucket.resume_bucket.id
   ignore_public_acls      = false
-  region                  = "us-west-2"
+  region                  = var.region_west
   restrict_public_buckets = false
   skip_destroy            = null
 }
