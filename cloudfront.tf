@@ -1,3 +1,8 @@
+locals {
+  cloudfront_origin_id = "resume-s3-origin"
+}
+
+
 ### Cloudfront Distro ##
 
 resource "aws_cloudfront_distribution" "cloudfront_distro" {
@@ -22,7 +27,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distro" {
     default_ttl            = 0
     max_ttl                = 0
     min_ttl                = 0
-    target_origin_id       = "x24sousa.com.s3.us-west-2.amazonaws.com-mplf868vsc6"
+    target_origin_id       = local.cloudfront_origin_id
     viewer_protocol_policy = "redirect-to-https"
     grpc_config {
       enabled = false
@@ -32,7 +37,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distro" {
     connection_attempts         = 3
     connection_timeout          = 10
     domain_name                 = "${var.domain_x24}.s3-website-us-west-2.amazonaws.com"
-    origin_id                   = "x24sousa.com.s3.us-west-2.amazonaws.com-mplf868vsc6"
+    origin_id                   = local.cloudfront_origin_id
     response_completion_timeout = 0
     custom_origin_config {
       http_port                = 80
