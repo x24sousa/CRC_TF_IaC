@@ -123,7 +123,7 @@ resource "aws_iam_policy" "codebuild_base_policy" {
 
 resource "aws_iam_role_policy_attachment" "codebuild_base_attachment" {
   policy_arn = aws_iam_policy.codebuild_base_policy.arn
-  role       = "codebuild-X24sousa_CICD-service-role"
+  role       = aws_iam_role.cicd_service_role.name
 }
 
 

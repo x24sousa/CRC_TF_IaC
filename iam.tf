@@ -37,7 +37,7 @@ resource "aws_iam_policy" "visitorcount_policy" {
 
 resource "aws_lambda_permission" "visitorcount_permission" {
   action        = "lambda:InvokeFunction"
-  function_name = "VisitorCountFuntion"
+  function_name = aws_lambda_function.visitor_function.function_name
   principal     = "apigateway.amazonaws.com"
   region        = var.region_west
   source_arn    = "${aws_apigatewayv2_api.visitor_api.execution_arn}/*/*/VisitorCountFuntion"

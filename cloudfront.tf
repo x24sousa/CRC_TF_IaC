@@ -36,7 +36,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distro" {
   origin {
     connection_attempts         = 3
     connection_timeout          = 10
-    domain_name                 = "${var.domain_x24}.s3-website-us-west-2.amazonaws.com"
+    domain_name                 = "${var.domain_x24}.s3-website-${var.region_west}.amazonaws.com"
     origin_id                   = local.cloudfront_origin_id
     response_completion_timeout = 0
     custom_origin_config {
