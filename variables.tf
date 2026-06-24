@@ -5,6 +5,12 @@ variable "region_west" {
 }
 
 
+variable "region_east" {
+  description = "Region"
+  type        = string
+  default     = "us-east-1"
+}
+
 
 variable "domain_x24" {
   description = "value"
