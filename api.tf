@@ -43,7 +43,7 @@ resource "aws_apigatewayv2_route" "api_route" {
   authorization_type = "NONE"
   region             = var.region_west
   route_key          = "GET /VisitorCountFuntion"
-  target             = "integrations/h024gfb"
+  target             = "integrations/${aws_apigatewayv2_integration.api_integration.id}"
 }
 
 
