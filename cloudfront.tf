@@ -14,9 +14,7 @@ resource "aws_cloudfront_distribution" "cloudfront_distro" {
   tags = {
     Name = "My Resume"
   }
-  tags_all = {
-    Name = "My Resume"
-  }
+
   wait_for_deployment = true
   web_acl_id          = aws_wafv2_web_acl.x24sousa_acl.arn # referenced below
   default_cache_behavior {

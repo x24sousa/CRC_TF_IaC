@@ -22,7 +22,6 @@ resource "aws_apigatewayv2_api" "visitor_api" {
 resource "aws_apigatewayv2_stage" "api_stage" {
   api_id        = aws_apigatewayv2_api.visitor_api.id
   auto_deploy   = true
-  deployment_id = "r4fe16"
   description   = "Created by AWS Lambda"
   name          = "default"
   region        = var.region_west

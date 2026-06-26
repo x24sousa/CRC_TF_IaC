@@ -1,10 +1,14 @@
+locals {
+  codebuild_project_name = "X24sousa_CICD"
+}
+
 #CodeBuild Project
 
 resource "aws_codebuild_project" "x24sousa_cicd" {
   auto_retry_limit   = 0
   build_timeout      = 60
   encryption_key     = "arn:aws:kms:us-west-2:538661800229:alias/aws/s3"
-  name               = "X24sousa_CICD"
+  name               = local.codebuild_project_name
   project_visibility = "PRIVATE"
   queued_timeout     = 480
   region             = var.region_west
@@ -58,7 +62,7 @@ resource "aws_iam_role" "cicd_service_role" {
   })
   force_detach_policies = false
   max_session_duration  = 3600
-  name                  = "codebuild-X24sousa_CICD-service-role"
+  name                  = "codebuild-${local.codebuild_project_name}-service-role"
   path                  = "/service-role/"
 }
 
@@ -96,7 +100,7 @@ resource "aws_iam_role_policy" "codebuild_modify_s3" {
 
 resource "aws_iam_policy" "codebuild_base_policy" {
   description = "Policy used in trust relationship with CodeBuild"
-  name        = "CodeBuildBasePolicy-X24sousa_CICD-us-west-2"
+  name        = "CodeBuildBasePolicy-${local.codebuild_project_name}-${var.region_west}"
   path        = "/service-role/"
   policy = jsonencode({
     Statement = [{
@@ -134,7 +138,7 @@ resource "aws_iam_role_policy_attachment" "codebuild_base_attachment" {
 
 resource "aws_iam_policy" "codebuild_connections_credentials" {
   description = "Policy used in trust relationship with CodeBuild"
-  name        = "CodeBuildCodeConnectionsSourceCredentialsPolicy-X24sousa_CICD-us-west-2-538661800229"
+  name        = "CodeBuildCodeConnectionsSourceCredentialsPolicy-${local.codebuild_project_name}-${var.region_west}-538661800229"
   path        = "/service-role/"
   policy = jsonencode({
     Statement = [{
@@ -152,7 +156,7 @@ resource "aws_iam_policy" "codebuild_connections_credentials" {
 
 resource "aws_iam_role_policy_attachment" "codebuild_credentials_attachment" {
   policy_arn = aws_iam_policy.codebuild_connections_credentials.arn
-  role       = "codebuild-X24sousa_CICD-service-role"
+  role       = aws_iam_role.cicd_service_role.name
 }
 
 #------------------------------------------------------------------------------------------------
@@ -172,9 +176,9 @@ resource "aws_codeconnections_connection" "codebuild_codeconnection" {
 
 resource "aws_cloudwatch_log_group" "x24sousa_cicd" {
   log_group_class   = "STANDARD"
-  name              = "/aws/codebuild/X24sousa_CICD"
+  name              = "/aws/codebuild/${local.codebuild_project_name}"
   region            = var.region_west
-  retention_in_days = 0
+  retention_in_days = 30
 }
 
 

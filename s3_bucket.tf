@@ -40,5 +40,4 @@ resource "aws_s3_bucket_public_access_block" "resume_bucket_public_access" {
   ignore_public_acls      = false
   region                  = var.region_west
   restrict_public_buckets = false
-  skip_destroy            = null
 }
