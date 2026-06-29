@@ -144,7 +144,9 @@ resource "aws_iam_policy" "codebuild_connections_credentials" {
     Statement = [{
       Action   = ["codestar-connections:GetConnectionToken", "codestar-connections:GetConnection", "codeconnections:GetConnectionToken", "codeconnections:GetConnection", "codeconnections:UseConnection"]
       Effect   = "Allow"
+      #Resource = [aws_codeconnections_connection.codebuild_codeconnection.arn]
       Resource = ["arn:aws:codestar-connections:us-west-2:538661800229:connection/d63be2a7-6a4e-4bdc-b93a-d82a270408b4", aws_codeconnections_connection.codebuild_codeconnection.arn]
+
     }]
     Version = "2012-10-17"
   })
