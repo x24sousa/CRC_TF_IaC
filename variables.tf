@@ -10,11 +10,9 @@ variable "region_east" {
   default     = "us-east-1"
 }
 
-
 variable "domain_x24" {
   description = "Domain name for the resume site"
   type        = string
   default     = "x24sousa.com"
-
 }
 
