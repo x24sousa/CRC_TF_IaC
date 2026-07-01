@@ -20,11 +20,11 @@ resource "aws_apigatewayv2_api" "visitor_api" {
 ### API Stage ###
 
 resource "aws_apigatewayv2_stage" "api_stage" {
-  api_id        = aws_apigatewayv2_api.visitor_api.id
-  auto_deploy   = true
-  description   = "Created by AWS Lambda"
-  name          = "default"
-  region        = var.region_west
+  api_id      = aws_apigatewayv2_api.visitor_api.id
+  auto_deploy = true
+  description = "Created by AWS Lambda"
+  name        = "default"
+  region      = var.region_west
   default_route_settings {
     data_trace_enabled       = false
     detailed_metrics_enabled = false

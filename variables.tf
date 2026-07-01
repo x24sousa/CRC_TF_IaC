@@ -16,3 +16,14 @@ variable "domain_x24" {
   default     = "x24sousa.com"
 }
 
+variable "s3_backend_suffix" {
+  description = "Suffix of the S3 bucket used for state file storage/versioning"
+  type        = string
+  default     = "-statefile"
+}
+
+variable "dynamo_backend_suffix" {
+  description = "Suffix of the DynamoDB Table used for state file storage/versioning"
+  type        = string
+  default     = "-lock"
+}
