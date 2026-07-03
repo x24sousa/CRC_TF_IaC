@@ -12,12 +12,7 @@ provider "aws" {
 
 
 
-
-
-
-
-
-
-
-
-
+import {
+  to = aws_iam_role_policy_attachment.github_actions_poweruser
+  id = "${aws_iam_role.GitHubActionsTerraformRole.name}/arn:aws:iam::aws:policy/PowerUserAccess"
+}
