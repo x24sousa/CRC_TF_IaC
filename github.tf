@@ -39,13 +39,16 @@ resource "aws_iam_role_policy" "github_actions_iam_read" {
   name = "GitHubActionsTerraformIAMRead"
   policy = jsonencode({
     Statement = [{
-      Action = ["iam:GetRole",
+      Action = [
+        "iam:GetRole",
         "iam:GetPolicy",
         "iam:GetPolicyVersion",
         "iam:GetRolePolicy",
+        "iam:GetOpenIDConnectProvider",
         "iam:ListRolePolicies",
         "iam:ListAttachedRolePolicies",
-      "iam:ListPolicyVersions"]
+        "iam:ListPolicyVersions"
+      ]
       Effect   = "Allow"
       Resource = "*"
     }]
