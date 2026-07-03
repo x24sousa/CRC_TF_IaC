@@ -53,6 +53,3 @@ Website: https://www.x24sousa.com
 
 ![Terraform](https://github.com/x24sousa/CRC_TF_IaC/actions/workflows/terraform.yml/badge.svg)
 
-For more detailed status tracking, create environment-specific badges:
-![Production](https://github.com/x24sousa/CRC_TF_IaC/actions/workflows/terraform.yml/badge.svg?branch=main)
-![Staging](https://github.com/x24sousa/CRC_TF_IaC/actions/workflows/terraform.yml/badge.svg?branch=stagi)
