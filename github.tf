@@ -17,7 +17,7 @@ resource "aws_iam_role" "GitHubActionsTerraformRole" {
           "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
         }
         StringLike = {
-          "token.actions.githubusercontent.com:sub" = "repo:x24sousa/CRC_TF_IaC:ref:refs/heads/main"
+          "token.actions.githubusercontent.com:sub" = "repo:x24sousa/CRC_TF_IaC:*"
         }
       }
       Effect = "Allow"
