@@ -40,6 +40,13 @@ jobs:
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
+      - name: Write Terraform plan summary
+        run: |
+          echo '## Terraform Plan" >> $GITHUB_STEP_SUMMARY
+          echo '```terraform' >> $GITHUB_STEP_SUMMARY
+          cat plan.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
       - name: Comment PR
         uses: actions/github-script@v7
         if: github.event_name == 'pull_request'
