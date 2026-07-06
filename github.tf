@@ -8,7 +8,7 @@ resource "aws_iam_openid_connect_provider" "github_oidc" {
 }
 
 
-resource "aws_iam_role" "GitHubActionsTerraformRole" {
+resource "aws_iam_role" "githubactionsterraformrole" {
   assume_role_policy = jsonencode({
     Statement = [{
       Action = "sts:AssumeRoleWithWebIdentity"
@@ -54,11 +54,11 @@ resource "aws_iam_role_policy" "github_actions_iam_read" {
     }]
     Version = "2012-10-17"
   })
-  role = aws_iam_role.GitHubActionsTerraformRole.name
+  role = aws_iam_role.githubactionsterraformrole.name
 }
 
 
 resource "aws_iam_role_policy_attachment" "github_actions_poweruser" {
   policy_arn = "arn:aws:iam::aws:policy/PowerUserAccess"
-  role       = aws_iam_role.GitHubActionsTerraformRole.name
+  role       = aws_iam_role.githubactionsterraformrole.name
 }
