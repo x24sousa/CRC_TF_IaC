@@ -38,7 +38,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         run: |
-          terraform plan -no-color -input=false | tee plan.txt
+          terraform plan -no-color -input=false | tee plan.txt | -out=tfplan
         continue-on-error: true
 
       - name: Write Terraform plan summary
@@ -47,6 +47,12 @@ jobs:
           echo '```terraform' >> $GITHUB_STEP_SUMMARY
           cat plan.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload plan artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: tfplan
 
       - name: Comment PR
         uses: actions/github-script@v7
