@@ -40,7 +40,7 @@ jobs:
         run: |
           terraform plan -no-color -input=false -out=tfplan
           terraform show -no-color tfplan > plan.txt
-        continue-on-error: true
+        continue-on-error: false
 
       - name: Write Terraform plan summary
         run: |
@@ -109,7 +109,8 @@ jobs:
             name: tfplan
 
       - name: Terraform Apply
-        run: terraform apply -input=false tfplan
+        run: terraform apply -input=false tfplan -out=tfapp
+        run: terraform show -no-color tfapp > tfapply.txt
 
       
   
