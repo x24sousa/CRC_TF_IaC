@@ -110,10 +110,14 @@ jobs:
 
       - name: Terraform Apply
         run: |
-          terraform apply -input=false tfplan -out=tfapp
-          terraform show -no-color tfapp > tfapply.txt
-
+          terraform apply -input=false tfplan | tee tfapply.txt
       
+      - name: Write Terraform apply summary
+        run: |
+          echo "## Terraform Apply" >> $GITHUB_STEP_SUMMARY
+          echo '```terraform' >> $GITHUB_STEP_SUMMARY
+          cat tfapply.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
   
 
 
