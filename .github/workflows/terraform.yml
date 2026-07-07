@@ -109,8 +109,9 @@ jobs:
             name: tfplan
 
       - name: Terraform Apply
-        run: terraform apply -input=false tfplan -out=tfapp
-        run: terraform show -no-color tfapp > tfapply.txt
+        run: |
+          terraform apply -input=false tfplan -out=tfapp
+          terraform show -no-color tfapp > tfapply.txt
 
       
   
