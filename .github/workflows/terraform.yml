@@ -110,7 +110,7 @@ jobs:
 
       - name: Terraform Apply
         run: |
-          terraform apply -input=false tfplan | tee tfapply.txt
+          terraform apply -input=false -no-color tfplan | tee tfapply.txt
       
       - name: Write Terraform apply summary
         run: |
