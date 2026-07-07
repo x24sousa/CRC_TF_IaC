@@ -108,9 +108,6 @@ jobs:
         with: 
             name: tfplan
 
-      #- name: Terraform Apply
-      #  run: terraform apply -auto-approve -input=false
-
       - name: Terraform Apply
         run: terraform apply -input=false tfplan
 
