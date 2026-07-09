@@ -6,6 +6,9 @@ resource "aws_s3_bucket" "resume_bucket" {
   lifecycle {
     prevent_destroy = true
   }
+  tags = {
+    Managedby = "Terraform"
+  }
 }
 
 #S3 bucket versioning resource
