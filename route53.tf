@@ -101,3 +101,15 @@ resource "aws_route53_record" "CNAME_www" {
   type    = "CNAME"
   zone_id = aws_route53_zone.route53_x24sousa.zone_id
 }
+
+
+
+resource "aws_route53_health_check" "x24sousa_http_health" {
+
+  fqdn              = "x24sousa.com"
+  port              = "80"
+  type              = "HTTP"
+  resource_path     = "/"
+  failure_threshold = "5"
+  request_interval  = "30"
+}
