@@ -106,12 +106,12 @@ resource "aws_route53_record" "CNAME_www" {
 
 resource "aws_route53_health_check" "x24sousa_http_health" {
 
-  fqdn              = "x24sousa.com"
-  port              = "80"
+  fqdn              = var.domain_x24
+  port              = var.http_port
   type              = "HTTP"
   resource_path     = "/"
-  failure_threshold = "5"
-  request_interval  = "30"
+  failure_threshold = 5
+  request_interval  = 30
 
   tags = {
     Name = "x24sousa_http"
@@ -120,12 +120,13 @@ resource "aws_route53_health_check" "x24sousa_http_health" {
 
 resource "aws_route53_health_check" "x24sousa_https_health" {
 
-  fqdn              = "x24sousa.com"
-  port              = "443"
+  fqdn              = var.domain_x24
+  port              = var.https_port
   type              = "HTTPS"
   resource_path     = "/"
-  failure_threshold = "5"
-  request_interval  = "30"
+  enable_sni        = true
+  failure_threshold = 5
+  request_interval  = 30
 
   tags = {
     Name = "x24sousa_https"
