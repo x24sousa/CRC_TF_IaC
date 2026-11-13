@@ -109,7 +109,7 @@ resource "aws_route53_health_check" "x24sousa_http_health" {
   fqdn              = "x24sousa.com"
   port              = "80"
   type              = "HTTP"
-  resource_path     = "/index.html"
+  resource_path     = "/"
   failure_threshold = "5"
   request_interval  = "30"
 
@@ -123,7 +123,7 @@ resource "aws_route53_health_check" "x24sousa_https_health" {
   fqdn              = "x24sousa.com"
   port              = "443"
   type              = "HTTPS"
-  resource_path     = "/index.html"
+  resource_path     = "/"
   failure_threshold = "5"
   request_interval  = "30"
 
