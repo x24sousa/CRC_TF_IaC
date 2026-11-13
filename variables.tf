@@ -27,3 +27,15 @@ variable "dynamo_backend_suffix" {
   type        = string
   default     = "-lock"
 }
+
+variable "http_port" {
+  description = "Port # of HTTP"
+  type        = number
+  default     = 80
+}
+
+variable "https_port" {
+  description = "Port # of HTTPS"
+  type        = number
+  default     = 443
+}
